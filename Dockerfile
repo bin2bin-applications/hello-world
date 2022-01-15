@@ -1,4 +1,4 @@
-FROM public.ecr.aws/nginx/nginx
+FROM nginx:latest
 LABEL maintainer="bin2bin"
 COPY /static /static
 COPY /nginx.conf /etc/nginx/nginx.conf
