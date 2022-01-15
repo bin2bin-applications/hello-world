@@ -19,6 +19,6 @@ jobs:
         CONTAINER_IMAGE_LATEST: docker.pkg.github.com/${{github.repository}}/dist:latest
       run: |
         docker login -u $GITHUB_ACTOR -p ${{secrets.GITHUB_TOKEN}} docker.pkg.github.com
-        docker build . --file Dockerfile -t $CONTAINER_IMAGE_LATEST .
+        docker build -t $CONTAINER_IMAGE_LATEST .
         docker push $CONTAINER_IMAGE_LATEST
 
