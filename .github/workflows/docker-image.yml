@@ -2,23 +2,19 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      env:
-        CONTAINER_IMAGE_LATEST: docker.pkg.github.com/${{github.repository}}/dist:latest
-      run: |
-        docker login -u $GITHUB_ACTOR -p ${{secrets.GITHUB_TOKEN}} docker.pkg.github.com
-        docker build -t $CONTAINER_IMAGE_LATEST .
-        docker push $CONTAINER_IMAGE_LATEST
-
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        env:
+          CONTAINER_IMAGE_LATEST: docker.pkg.github.com/${{github.repository}}:latest
+        run: |
+          docker login -u $GITHUB_ACTOR -p ${{secrets.GITHUB_TOKEN}} docker.pkg.github.com
+          docker build -t $CONTAINER_IMAGE_LATEST .
+          docker push $CONTAINER_IMAGE_LATEST
