@@ -13,9 +13,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build the Docker image
         env:
-          CONTAINER_IMAGE_BASE: docker.pkg.github.com/${{github.repository}}
+          CONTAINER_IMAGE_BASE: docker.pkg.github.com/$GITHUB_REPOSITORY
         run: |
-          export IMG_NAME=$(echo "${{github.repository}}" | tr '[:upper:]' '[:lower:]' | tr '-' '_')
+          export IMG_NAME=$(echo "${GITHUB_REPOSITORY#*/}" | tr '[:upper:]' '[:lower:]' | tr '-' '_')
           docker login -u $GITHUB_ACTOR -p ${{secrets.GITHUB_TOKEN}} docker.pkg.github.com
           docker build -t $CONTAINER_IMAGE_BASE/$IMG_NAME:latest .
           docker push $CONTAINER_IMAGE_BASE/$IMG_NAME:latest
+
